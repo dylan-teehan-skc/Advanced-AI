@@ -6,6 +6,11 @@ __pycache__/
 # raw EuroSAT images, features and checkpoints live on Drive, not in git
 data/*
 !data/splits/
+# small derived files that stay tracked
+!data/coords.csv
+!data/fingerprints/
+data/fingerprints/*
+!data/fingerprints/*.txt
 checkpoints/
 *.pt
 *.safetensors
