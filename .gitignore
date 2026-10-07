@@ -14,3 +14,4 @@ data/fingerprints/*
 checkpoints/
 *.pt
 *.safetensors
+.claude-flow/
