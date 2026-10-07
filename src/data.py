@@ -1,7 +1,7 @@
 """Reads any split CSV (filename, label, lon, lat, cell_id, split) and serves (image tensor, label index).
 
-Works unchanged on split_temp.csv and split_v1.csv because it only uses the filename, label and split columns.
-Takes a DataFrame, not a path, so it also accepts the rows returned by make_subset(pool, N, seed).
+Works unchanged on split_temp.csv and split_v1.csv. label and split columns.
+Takes a DataFrame so it also accepts the rows returned by make_subset(pool, N, seed).
 
 Self-check: python -m src.data [path/to/split.csv]
 """
