@@ -69,7 +69,7 @@ aai-project/
 
 ## If Colab disconnects
 
-Redo steps 1–4, then rerun the **same** training cell with the **same** `out_dir`. It finds `last.pt` and carries on from the next epoch. You lose at most one epoch.
+Redo steps 1–4, then rerun the **same** `run(...)` cell (same config, seed and `out_root`). It finds `last.pt` and carries on from the next epoch. You lose at most one epoch.
 
 Never reuse a run folder for a different condition or seed. Resume would load the wrong checkpoint.
 
