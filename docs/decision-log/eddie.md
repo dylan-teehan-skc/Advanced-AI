@@ -2,6 +2,16 @@
 
 Area: model and LoRA training. Newest at the top.
 
+## 7 Oct 2026 - Training settings, shared by all conditions
+- **Decision:** AdamW, weight decay 0.01, batch size 32, early stopping with patience 5 on validation CE, max 50 epochs. Only LR differs per condition (validation sweep).
+- **Why:** Decision 4 holds everything but LR identical, so rank is the only change. Values are starting points, checked in the validation-only LR pilot and fixed at design freeze.
+- **Affects:** `src/train.py` defaults, `configs/*.yaml`, training protocol in the write-up.
+
+## 7 Oct 2026 - Shuffle order and randomness reseeded from (seed, epoch)
+- **Decision:** Each epoch's order is `epoch_order(n, seed, epoch)` and `torch.manual_seed(seed * 1000 + epoch)` fixes orientations and dropout. Paddy's frozen trainer imports `epoch_order`.
+- **Why:** Same order per seed across conditions (decision 3), and a resumed run matches an uninterrupted one exactly without saving RNG state (tested).
+- **Affects:** `src/train.py`, Paddy's linear-head trainer, reproducibility section.
+
 ## 7 Oct 2026 - LoRA dropout 0.1 for both ranks
 - **Decision:** `lora_dropout=0.1` for rank 4 and rank 32. Fixed before the LR sweep.
 - **Why:** The Plan names LoRA dropout as an overfitting fix for rank 32 but set no value. 0.1 is the PEFT ViT guide's value; same for both ranks so rank stays the only change.
