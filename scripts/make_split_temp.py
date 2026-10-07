@@ -1,7 +1,7 @@
 """Fake random split with the same columns as split_v1.csv, so loaders can be built before the real spatial split exists.
 
 Columns: filename, label, lon, lat, cell_id, split. filename and label come from the real EuroSAT RGB files
-(data/eurosat/EuroSAT_RGB/<label>/<filename>); lon/lat/cell_id/split are random placeholders.
+(data/raw/EuroSAT_RGB/<label>/<filename>); lon/lat/cell_id/split are random placeholders.
 Do NOT use this split for any reported result.
 """
 from pathlib import Path
@@ -9,7 +9,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-ROOT = Path("data/eurosat/EuroSAT_RGB")
+ROOT = Path("data/raw/EuroSAT_RGB")
 
 rng = np.random.default_rng(0)
 rows = sorted((p.name, p.parent.name) for p in ROOT.glob("*/*.jpg"))

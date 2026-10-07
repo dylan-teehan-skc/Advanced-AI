@@ -10,7 +10,7 @@
 
 ## Decision log
 
-Record **important or semi-important** project decisions in `docs/decision-log/<name>.md` (`dylan.md`, `eddie.md`, `paddy.md`). The user is always Dylan. A team decision goes in the log of whoever owns that area. Only log a suggestion from Claude once the person has accepted it.
+Record **important or semi-important** project decisions in `docs/decision-log/<name>.md` (`dylan.md`, `eddie.md`, `paddy.md`). A personal decision goes in the current user's log (see "Who the user is"). A team decision goes in the log of whoever owns that area. Only log a suggestion from Claude once the person has accepted it.
 
 Log it only if it could change the results, or the write-up or oral would need to justify it:
 - **Log:** data source, split method and parameters (cell size, buffer, N), model or LoRA settings, metrics, seeds, hyperparameter choices, scope changes, fixes to the experimental design
@@ -28,7 +28,12 @@ Log it only if it could change the results, or the write-up or oral would need t
 
 ## The project
 
-4th-year Advanced AI group project (40% of the module). Track 3.2, parameter-efficient vision modelling. Team: **Dylan** (data + spatial split), **Eddie** (model + LoRA training), **Paddy** (frozen reference, metrics, analysis). The user is always Dylan.
+4th-year Advanced AI group project (40% of the module). Track 3.2, parameter-efficient vision modelling. Team: **Dylan** (data + spatial split), **Eddie** (model + LoRA training), **Paddy** (frozen reference, metrics, analysis).
+
+**Who the user is:** check at the start of each session with `git config user.name`, then use that person's name, area and decision log.
+- `Dylan Teehan` → Dylan
+- `eddiephelanfortyfive` → Eddie
+- Anything else (e.g. Paddy, not yet recorded) → ask who it is before logging decisions, then add their git name to this list
 
 **Research question:** With limited labelled data and a spatial split, does increasing LoRA rank beyond a small value improve held-out predictive performance on EuroSAT, measured by cross-entropy, or does performance level off?
 
