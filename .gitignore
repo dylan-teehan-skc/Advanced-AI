@@ -1,0 +1,11 @@
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+# raw EuroSAT images, features and checkpoints live on Drive, not in git
+data/*
+!data/splits/
+checkpoints/
+*.pt
+*.safetensors

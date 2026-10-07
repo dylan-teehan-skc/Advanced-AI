@@ -1,0 +1,12 @@
+torch==2.14.1
+torchvision==0.29.1
+transformers==5.19.0
+peft==0.21.2
+numpy==2.5.3
+pandas==3.0.6
+scikit-learn==1.9.1
+pyyaml==6.0.3
+pillow==12.3.0
+matplotlib==3.11.2
+pyproj==3.8.0
+rasterio==1.5.2
