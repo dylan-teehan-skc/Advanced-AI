@@ -84,6 +84,7 @@ Design freeze (git tag `design-freeze`) before any test evaluation. One missed g
 
 ## Repo map
 
+- Team Google Doc: https://docs.google.com/document/d/1v7sGrlO6qhq6hiyySxoIpXTzPMf-UUHa6G5XliaSMhA/edit?tab=t.iuhskrjqplxz (read with the Google Docs tool when needed)
 - `docs/spec.md` (spec), `docs/project-context.md`, `docs/project-plan-v2.txt` (current plan, pitfalls, oral prep), `docs/status.md` (3-line status per person)
 - `src/` (pipeline code), `scripts/` (one-off builders), `configs/` (one YAML per condition), `results/runs.csv` (one row per run)
 - `data/raw/` (EuroSAT zips + unzipped, git-ignored), `data/coords.csv`, `data/fingerprints/` (Paddy's frozen CLS fingerprints, `.npy` git-ignored, see the explainer), `data/splits/`
