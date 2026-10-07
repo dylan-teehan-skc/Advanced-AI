@@ -1,0 +1,11 @@
+# Frozen ViT + linear head (rank 0). Everything except condition, rank and lr must match the other configs (decision 4).
+condition: frozen
+rank: 0
+lr: 1.0e-2            # placeholder until the validation-only LR sweep (9-12 Oct)
+n_per_class: 50       # provisional N, chosen in the validation-only pilot
+split: data/splits/split_temp.csv   # switch to split_v1.csv when it lands
+batch_size: 32
+weight_decay: 0.01
+max_epochs: 50
+patience: 5
+lora_dropout: 0.1     # unused at rank 0

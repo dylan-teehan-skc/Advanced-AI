@@ -27,13 +27,18 @@ Without the shortcut, Colab can't see the folder: `drive.mount` only shows My Dr
 aai-project/
   EuroSAT_RGB.zip     the images (copy here once)
   features/           Paddy's cached ViT features
+  results/
+    runs.csv          one row per finished run (all accounts append here)
   runs/
     frozen_s0/        one folder per run: <condition>_s<seed>
     r4_s0/
     r32_s0/
       last.pt         latest checkpoint, used to resume
       best.pt         lowest validation CE, used for the single test evaluation
+      row.json        this run's runs.csv row; rebuild runs.csv from these if it ever clashes
 ```
+
+`runs/` and `results/` are created by the code; don't make them by hand.
 
 ## Every training session
 
@@ -53,7 +58,14 @@ aai-project/
    !unzip -q /content/EuroSAT_RGB.zip -d /content/eurosat
    ```
    In code, pass `root="/content/eurosat/EuroSAT_RGB"` to `EuroSATDataset`.
-5. Run training with the run folder on Drive, for example `out_dir="/content/drive/MyDrive/aai-project/runs/r4_s0"`.
+5. Run one config + seed, with checkpoints and results on Drive:
+   ```python
+   from src.run import run
+   DRIVE = "/content/drive/MyDrive/aai-project"
+   run("configs/r4.yaml", seed=0, out_root=f"{DRIVE}/runs", results_csv=f"{DRIVE}/results/runs.csv",
+       image_root="/content/eurosat/EuroSAT_RGB")
+   ```
+   This trains into `runs/r4_s0/`, scores validation with `best.pt` and appends one row to `results/runs.csv`. A finished run is skipped if rerun, so no duplicate rows.
 
 ## If Colab disconnects
 
