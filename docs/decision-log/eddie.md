@@ -2,6 +2,21 @@
 
 Area: model and LoRA training. Newest at the top.
 
+## 7 Oct 2026 - LoRA dropout 0.1 for both ranks
+- **Decision:** `lora_dropout=0.1` for rank 4 and rank 32. Fixed before the LR sweep.
+- **Why:** The Plan names LoRA dropout as an overfitting fix for rank 32 but set no value. 0.1 is the PEFT ViT guide's value; same for both ranks so rank stays the only change.
+- **Affects:** `src/model.py`, configs, LoRA settings in the write-up.
+
+## 7 Oct 2026 - Shared seeded head init: `init_head(seed)`
+- **Decision:** Head = `torch.manual_seed(seed)` then `nn.Linear(768, 10)`, from `src/model.py`. Paddy's frozen trainer imports it.
+- **Why:** Decision 3 needs the same starting head per seed in all conditions. HF's default head init differs from `nn.Linear`, so separate code would silently break the pairing.
+- **Affects:** `src/model.py`, Paddy's linear-head trainer.
+
+## 7 Oct 2026 - LoRA targets named `q_proj` / `v_proj`
+- **Decision:** `target_modules=["q_proj", "v_proj"]`, not `["query", "value"]`.
+- **Why:** transformers 5.x renamed ViT's query/value layers. Same matrices, so placement is unchanged; the trainable-count assert guards it.
+- **Affects:** `src/model.py`, the Plan's "target_modules must be query/value" pitfall line.
+
 ## 7 Oct 2026 - Bicubic resize, normalise with mean/std 0.5
 - **Decision:** Resize 64→224 with bicubic. Normalise with mean 0.5, std 0.5.
 - **Why:** 0.5/0.5 is what the checkpoint's `preprocessor_config.json` uses. It sets no resize method, so HF would default to bilinear; bicubic is our choice, applied the same everywhere.
