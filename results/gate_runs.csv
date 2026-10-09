@@ -1,0 +1,6 @@
+run_id,condition,rank,seed,n_per_class,lr,alpha,best_epoch,val_ce,val_bal_acc,test_ce,test_bal_acc,trainable_params,train_time_s,gpu,git_commit
+frozen_s0,frozen,0,0,50,0.01,0,18,0.448368,0.850862,,,7690,0,cpu,1ffee35
+frozen_s1,frozen,0,1,50,0.01,0,25,0.443791,0.850871,,,7690,0,cpu,1ffee35
+frozen_s2,frozen,0,2,50,0.01,0,23,0.447763,0.845254,,,7690,0,cpu,1ffee35
+frozen_s3,frozen,0,3,50,0.01,0,25,0.428534,0.856256,,,7690,0,cpu,1ffee35
+frozen_s4,frozen,0,4,50,0.01,0,19,0.431423,0.851553,,,7690,0,cpu,1ffee35

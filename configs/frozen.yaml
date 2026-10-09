@@ -3,7 +3,7 @@ condition: frozen
 rank: 0
 lr: 1.0e-2            # placeholder until the validation-only LR sweep (9-12 Oct)
 n_per_class: 50       # provisional N, chosen in the validation-only pilot
-split: data/splits/split_temp.csv   # switch to split_v1.csv when it lands
+split: data/splits/split_v1.csv     # spatial split (41 km cells), scripts/build_split.py
 batch_size: 32
 weight_decay: 0.01
 max_epochs: 50
