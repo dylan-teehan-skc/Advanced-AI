@@ -1,0 +1,13 @@
+{
+ "condition": "frozen",
+ "rank": 0,
+ "lr": 0.01,
+ "n_per_class": 20,
+ "split": "data/splits/split_v1.csv",
+ "batch_size": 32,
+ "weight_decay": 0.01,
+ "max_epochs": 50,
+ "patience": 5,
+ "lora_dropout": 0.1,
+ "features": "data\\fingerprints\\features_8view.npy"
+}
