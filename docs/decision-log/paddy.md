@@ -2,6 +2,16 @@
 
 Area: frozen reference, metrics and analysis. Newest at the top.
 
+## 14 Oct 2026 - Training subset spread across grid cells (make_subset)
+- **Decision:** `make_subset(pool, n, seed)` lives in `src/subset.py` and replaces the random stand-in in `src/run.py`. For each class the seed shuffles the 41 km cells and the images inside each cell, and the pick goes round the cells taking one image from each until it has n. Paddy took this over from Dylan (agreed 14 Oct).
+- **Why:** The training pool is clustered: one cell holds 300 of SeaLake's 714 images, 251 of PermanentCrop's 952 and 231 of HerbaceousVegetation's 693. A plain random pick of 50 per class gets only 0.54 distinct cells per image (spread pick: 0.95), so much of n goes on near-copies, by a different amount for each seed. Spreading follows the same reasoning as the spatial split. It also makes subsets nested (the n = 10 pick is the start of the n = 20 pick), so the N pilot compares more data, not a different draw. Self-check: `python -m src.subset`.
+- **Affects:** every run (frozen and LoRA use the same images per seed), the N pilot, the maximum N (532, River). The gate runs used the old random pick and are not reused.
+
+## 14 Oct 2026 - N pilot rule fixed before running: accuracy band 70-85%
+- **Decision:** N = the smallest of 10, 20, 50, 100, 200 images per class whose mean frozen validation balanced accuracy (5 seeds) is between 70% and 85%. The frozen learning rate is then the lowest mean validation CE of 0.001, 0.003, 0.01, 0.03 at that N. `scripts/pilot.py`, results in `results/pilot_n.csv` and `results/pilot_lr.csv`.
+- **Why:** Limited labelled data is part of the question, and a frozen reference near the ceiling would leave LoRA no room to differ. Fixing the rule before seeing results stops N being picked to favour an answer. Validation only; test is never loaded.
+- **Affects:** `n_per_class` in all three configs, the frozen `lr`, Eddie's LoRA learning-rate sweep (needs N first).
+
 ## 9 Oct 2026 - Gate reference runs kept separate from the final runs
 - **Decision:** The baseline-gate frozen runs (N = 50, placeholder LR 0.01, validation only) go to `runs/gate/` and `results/gate_runs.csv`, not `runs/` and `results/runs.csv`.
 - **Why:** Their settings are provisional. A run is skipped if its folder already has `row.json`, so in `runs/` they would silently stand in for the real frozen runs after the pilot.

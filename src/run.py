@@ -17,16 +17,12 @@ from torch.utils.data import DataLoader
 from src.data import ROOT, EuroSATDataset, read_split
 from src.metrics import balanced_accuracy, cross_entropy
 from src.model import build_model, count_trainable
+from src.subset import make_subset  # spread across grid cells, see src/subset.py
 from src.train import train
 from src.transforms import eval_transform, train_transform
 
 COLUMNS = ["run_id", "condition", "rank", "seed", "n_per_class", "lr", "alpha", "best_epoch", "val_ce",
            "val_bal_acc", "test_ce", "test_bal_acc", "trainable_params", "train_time_s", "gpu", "git_commit"]
-
-
-def make_subset(pool, n, seed):
-    # ponytail: stand-in with the same signature as Dylan's make_subset; replace with his import when it lands
-    return pool.groupby("label").sample(n, random_state=seed).reset_index(drop=True)
 
 
 def load_config(path):
