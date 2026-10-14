@@ -1,0 +1,18 @@
+{
+ "run_id": "frozen_s0",
+ "condition": "frozen",
+ "rank": 0,
+ "seed": 0,
+ "n_per_class": 100,
+ "lr": 0.01,
+ "alpha": 0,
+ "best_epoch": 10,
+ "val_ce": 0.35178,
+ "val_bal_acc": 0.879045,
+ "test_ce": "",
+ "test_bal_acc": "",
+ "trainable_params": 7690,
+ "train_time_s": 1,
+ "gpu": "cpu",
+ "git_commit": "ec54768"
+}

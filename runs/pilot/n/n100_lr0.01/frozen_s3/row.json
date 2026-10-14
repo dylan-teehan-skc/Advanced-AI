@@ -1,0 +1,18 @@
+{
+ "run_id": "frozen_s3",
+ "condition": "frozen",
+ "rank": 0,
+ "seed": 3,
+ "n_per_class": 100,
+ "lr": 0.01,
+ "alpha": 0,
+ "best_epoch": 13,
+ "val_ce": 0.35194,
+ "val_bal_acc": 0.875044,
+ "test_ce": "",
+ "test_bal_acc": "",
+ "trainable_params": 7690,
+ "train_time_s": 1,
+ "gpu": "cpu",
+ "git_commit": "ec54768"
+}

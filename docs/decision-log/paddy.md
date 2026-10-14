@@ -2,6 +2,16 @@
 
 Area: frozen reference, metrics and analysis. Newest at the top.
 
+## 14 Oct 2026 - Frozen learning rate = 0.01
+- **Decision:** The frozen condition keeps lr = 0.01 (the gate placeholder), now chosen by the pilot rule: lowest mean validation CE at N = 20.
+- **Why:** 5 seeds each: lr 0.001 gave CE 0.740 +/- 0.017; 0.003 gave 0.582 +/- 0.023; 0.01 gave 0.559 +/- 0.026; 0.03 gave 0.606 +/- 0.026. The best is inside the grid, not at an edge. 0.001 and 0.003 were still improving at the 50-epoch cap, but the cap is part of the shared training budget for every condition, so the pick is the best rate within that budget. The lr 0.01 runs reproduced the N pilot's N = 20 runs to every printed digit (same seeds), which confirms the frozen path is deterministic. Results in `results/pilot_lr.csv`.
+- **Affects:** `lr` in `configs/frozen.yaml`, the final frozen runs. The LoRA conditions get their own rates from Eddie's sweep.
+
+## 14 Oct 2026 - N = 20 images per class (amends the N pilot rule)
+- **Decision:** N = 20 per class (200 training images) for every condition. This amends the rule below, which picked N = 10. The amendment was made after the frozen N pilot and before any LoRA run.
+- **Why:** Frozen pilot, lr 0.01, 5 seeds, validation: N = 10 gave CE 0.744 +/- 0.034 and balanced accuracy 73.8%; N = 20 gave 0.559 +/- 0.026 and 80.2%; N = 50 gave 0.424 +/- 0.019 and 85.1%; N = 100 gave 0.346 and 88.1%; N = 200 gave 0.302 and 90.0%. Both 10 and 20 are in the 70-85% band. 10 is too small in practice: an epoch is 4 batches, so patience 5 allows only 20 updates without improvement and LoRA at low learning rates could stop before it gets going. 20 doubles that, stays clearly limited data (about 1% of each class) and sits mid-band, leaving room above the frozen reference. No LoRA results existed, so the change cannot favour either answer to the rank question. Results in `results/pilot_n.csv`.
+- **Affects:** `n_per_class: 20` in all three configs, the frozen learning-rate sweep (`python scripts/pilot.py lr --n 20`), Eddie's LoRA learning-rate sweep.
+
 ## 14 Oct 2026 - Training subset spread across grid cells (make_subset)
 - **Decision:** `make_subset(pool, n, seed)` lives in `src/subset.py` and replaces the random stand-in in `src/run.py`. For each class the seed shuffles the 41 km cells and the images inside each cell, and the pick goes round the cells taking one image from each until it has n. Paddy took this over from Dylan (agreed 14 Oct).
 - **Why:** The training pool is clustered: one cell holds 300 of SeaLake's 714 images, 251 of PermanentCrop's 952 and 231 of HerbaceousVegetation's 693. A plain random pick of 50 per class gets only 0.54 distinct cells per image (spread pick: 0.95), so much of n goes on near-copies, by a different amount for each seed. Spreading follows the same reasoning as the spatial split. It also makes subsets nested (the n = 10 pick is the start of the n = 20 pick), so the N pilot compares more data, not a different draw. Self-check: `python -m src.subset`.
