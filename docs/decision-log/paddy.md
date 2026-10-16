@@ -32,6 +32,11 @@ Area: frozen reference, metrics and analysis. Newest at the top.
 - **Why:** Same augmentation distribution as LoRA (uniform over the same 8 orientations). An exact per-image match isn't possible, because LoRA draws orientations inside DataLoader workers. The separate generator keeps view draws off the order's random stream.
 - **Affects:** `src/frozen.py`, the pairing claim in the write-up (same distribution, not the same draw per image).
 
+## 7 Oct 2026 - Metrics: cross-entropy primary, balanced accuracy secondary, one shared file
+- **Decision:** `src/metrics.py` scores every run. Primary metric: mean cross-entropy over images, in nats (random guessing over 10 classes = ln 10 = 2.303). Secondary: balanced accuracy (accuracy within each class, averaged over classes). Fallback primary if the test set turns out uneven: class-averaged cross-entropy. Computed in float64 from logits, accepting numpy or torch.
+- **Why:** Cross-entropy uses the probability given to the correct class, so it also measures confidence and can pick up smaller differences between conditions than accuracy, which only checks the top guess. Balanced accuracy is easier to read and stops a large class dominating. One file means every condition is scored the same way. The self-check (`python -m src.metrics`) checks hand-worked cases, agrees with scikit-learn's `log_loss` and `balanced_accuracy_score`, and gives the same cross-entropy as PyTorch's `F.cross_entropy`, so training, best-epoch choice and reported results all use one definition.
+- **Affects:** `src/frozen.py`, `src/run.py` (both use it for validation and later test), the results table and figure, the checkpoint choice (lowest validation CE).
+
 ## 7 Oct 2026 - 8-view features for all 27,000 images, on the pinned versions
 - **Decision:** Cache all 8 orientations of every image (not only the training pool) with `eight_views()` from `src/transforms.py`, on the `requirements.txt` versions. `features_8view.npy` is the only feature file from now on; its view 0 replaces `fingerprints_view0.npy`.
 - **Why:** No wait on the split and no re-extraction if it changes. Same code as LoRA's augmentation (Decision 2). View 0 matches the 6 Oct file (mean cosine 1.00000, min 0.99988), so the cell-size analysis stands.
