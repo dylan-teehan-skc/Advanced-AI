@@ -9,10 +9,11 @@
  "best_epoch": 27,
  "val_ce": 0.546691,
  "val_bal_acc": 0.80473,
- "test_ce": "",
- "test_bal_acc": "",
+ "test_ce": 0.44321,
+ "test_bal_acc": 0.843794,
  "trainable_params": 7690,
  "train_time_s": 1,
  "gpu": "cpu",
- "git_commit": "03c446f"
+ "git_commit": "03c446f",
+ "test_ce_class_avg": 0.462189
 }
