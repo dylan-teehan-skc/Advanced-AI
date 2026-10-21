@@ -86,6 +86,6 @@ Design freeze (git tag `design-freeze`) before any test evaluation. One missed g
 
 - Team Google Doc: https://docs.google.com/document/d/1v7sGrlO6qhq6hiyySxoIpXTzPMf-UUHa6G5XliaSMhA/edit?tab=t.iuhskrjqplxz (read with the Google Docs tool when needed)
 - `docs/spec.md` (spec), `docs/project-context.md`, `docs/project-plan-v2.txt` (current plan, pitfalls, oral prep), `docs/status.md` (3-line status per person)
-- `src/` (pipeline code), `scripts/` (one-off builders), `configs/` (one YAML per condition), `results/runs.csv` (one row per run)
+- `src/` (pipeline code), `scripts/` (one-off builders), `configs/` (one YAML per condition), `results/final_results/runs_<condition>.csv` (one row per final run), `results/pilot/` (validation-only pilots), `results/baseline_gate/`, `results/figures/`; run folders in `runs/Frozen`, `runs/R4`, `runs/R32`
 - `data/raw/` (EuroSAT zips + unzipped, git-ignored), `data/coords.csv`, `data/fingerprints/` (Paddy's frozen CLS fingerprints, `.npy` git-ignored, see the explainer), `data/splits/`
 - Python env: `.venv/`, deps pinned in `requirements.txt`

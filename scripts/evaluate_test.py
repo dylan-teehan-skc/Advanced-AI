@@ -2,7 +2,7 @@
 
 For each final run it loads best.pt (the lowest-validation-CE epoch), re-scores validation and checks it matches the
 val_ce already recorded (proof the right checkpoint was loaded), then scores test and writes test_ce and
-test_bal_acc into that run's row in the results CSV and its row.json. It also saves the test logits
+test_bal_acc into that run's row in the results CSV (results/final_results/runs_<condition>.csv) and its row.json. It also saves the test logits
 (test_logits.npy) for later error analysis. A run whose test_ce is already filled in is skipped, so test is never
 scored twice.
 
@@ -82,11 +82,13 @@ def update_csv(path, run_id, values):
 def main():
     ap = argparse.ArgumentParser(description="One-time test evaluation of the final runs")
     ap.add_argument("condition", choices=["frozen", "r4", "r32"])
-    ap.add_argument("--runs-root", default="runs")
-    ap.add_argument("--results", default="results/runs.csv")
+    ap.add_argument("--runs-root", default=None, help="default runs/Frozen, runs/R4 or runs/R32")
+    ap.add_argument("--results", default=None, help="default results/final_results/runs_<condition>.csv")
     ap.add_argument("--features", default="data/fingerprints")
     ap.add_argument("--image-root", default=str(ROOT), help="unzipped EuroSAT_RGB folder (LoRA only)")
     a = ap.parse_args()
+    a.runs_root = a.runs_root or f"runs/{ {'frozen': 'Frozen', 'r4': 'R4', 'r32': 'R32'}[a.condition] }"
+    a.results = a.results or f"results/final_results/runs_{a.condition}.csv"
 
     cfg = load_config(f"configs/{a.condition}.yaml")
     test = read_split(cfg["split"], "test")

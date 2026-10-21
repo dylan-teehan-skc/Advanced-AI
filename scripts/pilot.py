@@ -7,7 +7,7 @@ Stage 1, images per class:     python scripts/pilot.py n
 Stage 2, frozen learning rate: python scripts/pilot.py lr --n <chosen N>
     lr = 0.001, 0.003, 0.01, 0.03 at the chosen N, 5 seeds each. Take the lowest mean validation CE.
 
-Results go to results/pilot_n.csv, results/pilot_lr.csv and runs/pilot/, never results/runs.csv.
+Results go to results/pilot/pilot_n.csv, results/pilot/pilot_lr.csv and runs/pilot/, never results/final_results/.
 The test set is never loaded. Rerunning skips runs that already finished.
 Run from the repo root.
 """
@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
     if a.stage == "n":
         lr = load_config("configs/frozen.yaml")["lr"]
-        table = sweep([(n, lr) for n in N_GRID], "runs/pilot/n", "results/pilot_n.csv")
+        table = sweep([(n, lr) for n in N_GRID], "runs/pilot/n", "results/pilot/pilot_n.csv")
         inside = table[table["acc_mean"].between(*BAND)]
         if len(inside):
             print(f"\nRule: smallest N with mean balanced accuracy in {BAND[0]:.0%}-{BAND[1]:.0%} -> "
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     else:
         if a.n is None:
             ap.error("the lr stage needs --n")
-        table = sweep([(a.n, lr) for lr in LR_GRID], f"runs/pilot/lr_n{a.n}", "results/pilot_lr.csv")
+        table = sweep([(a.n, lr) for lr in LR_GRID], f"runs/pilot/lr_n{a.n}", "results/pilot/pilot_lr.csv")
         best = table.loc[table["ce_mean"].idxmin()]
         print(f"\nRule: lowest mean validation CE -> lr = {best.lr:g}")
         if best.lr in (min(LR_GRID), max(LR_GRID)):

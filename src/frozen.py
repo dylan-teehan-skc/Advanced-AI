@@ -87,7 +87,7 @@ def train_head(x_train, y_train, x_val, y_val, seed, lr, batch_size, weight_deca
                   "train_time_s": time.time() - t0}
 
 
-def run_frozen(config_path, seed, out_root, results_csv="results/runs.csv", split=None, features_dir=FEATURES):
+def run_frozen(config_path, seed, out_root, results_csv="results/final_results/runs_frozen.csv", split=None, features_dir=FEATURES):
     """One frozen run = one seed: subset, train the head, score validation, save, append one row to runs.csv."""
     cfg = load_config(config_path)
     if split:
@@ -168,8 +168,8 @@ if __name__ == "__main__":
     ap.add_argument("--seeds", type=int, nargs="+", help="e.g. --seeds 0 1 2 3 4")
     ap.add_argument("--config", default="configs/frozen.yaml")
     ap.add_argument("--split", help="overrides the config's split, e.g. data/splits/split_v1.csv")
-    ap.add_argument("--out-root", default="runs")
-    ap.add_argument("--results", default="results/runs.csv")
+    ap.add_argument("--out-root", default="runs/Frozen")
+    ap.add_argument("--results", default="results/final_results/runs_frozen.csv")
     ap.add_argument("--features", default=str(FEATURES))
     a = ap.parse_args()
     if a.seeds is None:

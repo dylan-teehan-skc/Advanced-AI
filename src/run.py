@@ -57,8 +57,10 @@ def git_commit():
     return out.stdout.strip() or "unknown"
 
 
-def run(config_path, seed, out_root, results_csv="results/runs.csv", image_root=ROOT, num_workers=2, device=None):
+def run(config_path, seed, out_root, results_csv=None, image_root=ROOT, num_workers=2, device=None):
     cfg = load_config(config_path)
+    if results_csv is None:  # one results file per condition, e.g. results/final_results/runs_r4.csv
+        results_csv = f"results/final_results/runs_{cfg['condition']}.csv"
     run_id = f"{cfg['condition']}_s{seed}"
     out = Path(out_root) / run_id
     if (out / "row.json").exists():

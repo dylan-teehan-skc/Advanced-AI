@@ -2,6 +2,16 @@
 
 Area: frozen reference, metrics and analysis. Newest at the top.
 
+## 20 Oct 2026 - Rank 32 vs rank 4 on test reported as a tie under the pre-set rule
+- **Decision:** Report the rank comparison as inconclusive. Test CE paired differences (rank 32 minus rank 4), seeds 0-4: -0.073, -0.041, -0.072, +0.031, -0.062. Mean -0.043, SD 0.043: equal to the precision reported, so the rule (levels off if |mean| < SD) cannot separate "improves" from "levels off". We chose not to break the tie with extra decimal places.
+- **Why:** A rule that hinges on the 5th decimal place is noise, not evidence; repeat runs with identical settings differ by up to 0.024 in validation CE. Spec 13: do not turn an uncertain result into a stronger claim. Rank 32 is lower on 4 of 5 seeds and this is reported alongside.
+- **Affects:** Written analysis (Controlled comparison, Repeated-run results, Interpretation), slides, oral.
+
+## 20 Oct 2026 - Test set scored once, after all design choices were fixed
+- **Decision:** `scripts/evaluate_test.py` scores each final run's best.pt on test once, after re-scoring validation to confirm the checkpoint (must match the recorded val CE within 1e-3). Runs with test_ce already filled are skipped. Frozen on a laptop, LoRA on a Colab T4. Uneven-class fallback not needed (smallest test class 285 images). No design-freeze tag was used; dated decision logs and per-row commits show the order instead.
+- **Why:** Spec 4.5: test is never used for design choices. The validation re-check catches a wrong or mismatched checkpoint before test is touched.
+- **Affects:** `results/runs.csv` and the Drive `runs_r4.csv` / `runs_r32.csv` (test columns), `runs/*/test_logits.npy`, Table 1.
+
 ## 14 Oct 2026 - Frozen learning rate = 0.01
 - **Decision:** The frozen condition keeps lr = 0.01 (the gate placeholder), now chosen by the pilot rule: lowest mean validation CE at N = 20.
 - **Why:** 5 seeds each: lr 0.001 gave CE 0.740 +/- 0.017; 0.003 gave 0.582 +/- 0.023; 0.01 gave 0.559 +/- 0.026; 0.03 gave 0.606 +/- 0.026. The best is inside the grid, not at an edge. 0.001 and 0.003 were still improving at the 50-epoch cap, but the cap is part of the shared training budget for every condition, so the pick is the best rate within that budget. The lr 0.01 runs reproduced the N pilot's N = 20 runs to every printed digit (same seeds), which confirms the frozen path is deterministic. Results in `results/pilot_lr.csv`.

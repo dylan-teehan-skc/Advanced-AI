@@ -1,7 +1,7 @@
 """Copy the per-epoch loss history out of each LoRA run's last.pt into runs/<run>/history.json.
 
 Run in Colab after mounting Drive (needs torch). Then pull the history.json files into the repo's runs/ folder
-and rerun scripts/plot_results.py: figure 1 gains r4 and r32 panels automatically.
+(runs/R4/, runs/R32/). The history files are the per-epoch record of each LoRA run.
 src/train.py stores the history in last.pt under ckpt["state"]["history"] (one dict per epoch: train_ce, val_ce).
 """
 import json
