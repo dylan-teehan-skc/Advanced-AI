@@ -1,6 +1,6 @@
 """Compare the three conditions using every test prediction, not just one number per run.
 
-Run from the repo root:  python3 scripts/compare_outputs.py   ->  results/figures/results/compare_*.png + compare_summary.txt
+Run from the repo root:  python3 scripts/compare_outputs.py   ->  results/figures/compare_*.png + compare_summary.txt
 Reads runs/<Group>/<run>/test_logits.npy (one row per test image, in split_v1.csv test order) and row.json.
 Everything here is analysis of finished runs: nothing is chosen with the test set.
 
@@ -24,7 +24,7 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-RUNS, OUT = ROOT / "runs", ROOT / "results" / "figures" / "results"
+RUNS, OUT = ROOT / "runs", ROOT / "results" / "figures"
 OUT.mkdir(parents=True, exist_ok=True)
 SPLIT = ROOT / "data" / "splits" / "split_v1.csv"
 CLASSES = sorted(["AnnualCrop", "Forest", "HerbaceousVegetation", "Highway", "Industrial",
