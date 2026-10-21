@@ -1,7 +1,7 @@
 # LoRA rank 4. Everything except condition, rank and lr must match the other configs (decision 4).
 condition: r4
 rank: 4
-lr: 1.0e-3            # placeholder until the validation-only LR sweep (9-12 Oct)
+lr: 1.0e-3            # chosen by the validation-only LR sweep (results/pilot/pilot_lora_lr_*.csv)
 n_per_class: 20       # frozen validation-only N pilot, 14 Oct (decision log: paddy.md)
 split: data/splits/split_v1.csv     # spatial split (41 km cells), scripts/build_split.py
 batch_size: 32

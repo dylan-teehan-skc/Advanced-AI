@@ -114,8 +114,7 @@ scripts/                    One-off steps, run by hand from the repo root
   pilot.py                  Frozen N and learning-rate pilots (validation only)
   evaluate_test.py          The one-time test evaluation
   export_histories.py       Per-epoch histories out of LoRA checkpoints (Colab)
-  plot_results.py           Results figures
-  plot_train_vs_test.py     Train vs test figures
+  compare_outputs.py        All results figures + compare_summary.txt, from saved test logits
   make_split_temp.py        Placeholder random split used before the real one existed
 configs/                    frozen.yaml, r4.yaml, r32.yaml (identical except condition, rank, lr)
 notebooks/
@@ -129,7 +128,7 @@ results/
   pilot/                    N and learning-rate pilot rows
   baseline_gate/            Week-5 gate runs (N = 50, kept separate)
   figures/                  All figures + all_runs_table.csv
-runs/                       Per-run config, per-epoch history, results row (frozen/, R4/, R32/, pilot/, gate/)
+runs/                       Per-run config, per-epoch history, results row, test logits (Frozen/, R4/, R32/, pilot/, gate/)
 docs/                       Spec, decision logs (one per person), Colab + Drive setup
 ```
 
@@ -152,6 +151,10 @@ Download `EuroSAT_RGB.zip` and `EuroSAT_MS.zip` from [Zenodo record 7711810](htt
 .venv/bin/python scripts/build_split.py      # → data/splits/split_v1.csv (fails loudly if any check fails)
 ```
 
+### Seeds
+
+Seeds `0 1 2 3 4`, the same for every condition. Seed `s` fixes the training subset (`make_subset`), the head init (`init_head`) and the per-epoch shuffle (`seed * 1000 + epoch`, `src/train.py`), so seed `s` uses the same images in the same order in every condition. All other settings are in `configs/*.yaml`. Only `condition`, `rank` and `lr` differ between the files.
+
 ### 3. Check the pipeline
 
 ```bash
@@ -163,7 +166,7 @@ for m in transforms data subset metrics model train run frozen; do .venv/bin/pyt
 - **Frozen** (laptop, seconds per run; needs the cached 8-view features from `notebooks/preprocessing/8ViewExtraction.ipynb` in `data/fingerprints/`):
   ```bash
   .venv/bin/python -m src.frozen --seeds 0 1 2 3 4 --split data/splits/split_v1.csv \
-      --out-root runs/frozen --results results/final_results/runs_frozen.csv
+      --out-root runs/Frozen --results results/final_results/runs_frozen.csv
   ```
 - **LoRA** (Colab T4, ~25 min per final run): open `notebooks/training/LoRASweepAndRuns_r4.ipynb` or `_r32.ipynb` and run top to bottom. Checkpoints go to Drive after every epoch; a disconnected run resumes exactly. Setup: [`docs/colab-drive-setup.md`](docs/colab-drive-setup.md).
 
@@ -172,10 +175,15 @@ A finished run is skipped if rerun, so results rows are never duplicated.
 ### 5. Evaluate and plot
 
 ```bash
-.venv/bin/python scripts/evaluate_test.py frozen --runs-root runs/frozen --results results/final_results/runs_frozen.csv
-.venv/bin/python scripts/plot_results.py
-.venv/bin/python scripts/plot_train_vs_test.py
+.venv/bin/python scripts/evaluate_test.py frozen    # also r4, r32 (needs data/raw/EuroSAT_RGB for LoRA)
+.venv/bin/python scripts/compare_outputs.py         # → results/figures/compare_*.png + compare_summary.txt
 ```
+
+Each run is scored on the test set once. Rerunning the evaluation skips runs that already have a test score.
+
+### What to expect
+
+Reproduction-ready, not bit-identical. GPU LoRA training uses non-deterministic ops, so rerunning with the same seed moves validation CE by up to about 0.024. The frozen runs and the split rebuild are deterministic. Steps 1–5 are all of it. There are no manual steps apart from downloading the data and opening the Colab notebooks.
 
 ## Compute
 
