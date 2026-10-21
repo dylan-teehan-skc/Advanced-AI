@@ -1,0 +1,23 @@
+test images: 3922, test grid cells: 134 (median 13 images per cell)
+
+r4 - frozen: mean diff -0.2256 nats | 95% CI over seeds [-0.2556, -0.1955] | 95% CI over test cells [-0.2728, -0.1821] | r4 lower on 5/5 seeds
+r32 - frozen: mean diff -0.2689 nats | 95% CI over seeds [-0.3256, -0.2122] | 95% CI over test cells [-0.3238, -0.2138] | r32 lower on 5/5 seeds
+r32 - r4: mean diff -0.0433 nats | 95% CI over seeds [-0.0972, +0.0105] | 95% CI over test cells [-0.0686, -0.0246] | r32 lower on 4/5 seeds
+
+per-class test CE (mean of 5 seeds):
+class                    frozen       r4      r32   r32-r4
+River                     0.872    0.357    0.248   -0.109
+Pasture                   0.799    0.615    0.326   -0.289
+PermanentCrop             0.703    0.296    0.280   -0.016
+Highway                   0.674    0.285    0.235   -0.050
+HerbaceousVegetation      0.447    0.315    0.303   -0.013
+Residential               0.365    0.126    0.109   -0.017
+Industrial                0.337    0.104    0.102   -0.002
+SeaLake                   0.279    0.152    0.139   -0.014
+Forest                    0.179    0.121    0.113   -0.009
+AnnualCrop                0.163    0.076    0.071   -0.005
+
+expected calibration error (10 bins), mean ± sd over seeds; mean top-class confidence vs accuracy:
+frozen   ECE 0.0214 ± 0.0058 | confidence 0.827 vs accuracy 0.844
+r4       ECE 0.0189 ± 0.0070 | confidence 0.922 vs accuracy 0.929
+r32      ECE 0.0215 ± 0.0078 | confidence 0.934 vs accuracy 0.945
