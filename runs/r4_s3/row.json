@@ -1,0 +1,19 @@
+{
+ "run_id": "r4_s3",
+ "condition": "r4",
+ "rank": 4,
+ "seed": 3,
+ "n_per_class": 20,
+ "lr": 0.001,
+ "alpha": 4,
+ "best_epoch": 35,
+ "val_ce": 0.300466,
+ "val_bal_acc": 0.901909,
+ "test_ce": 0.16218,
+ "test_bal_acc": 0.949752,
+ "trainable_params": 155146,
+ "train_time_s": 2074,
+ "gpu": "Tesla T4",
+ "git_commit": "570df25",
+ "test_ce_class_avg": 0.166904
+}
