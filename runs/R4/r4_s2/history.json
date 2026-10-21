@@ -1,0 +1,167 @@
+[
+ {
+  "epoch": 1,
+  "train_ce": 2.2467,
+  "val_ce": 2.149
+ },
+ {
+  "epoch": 2,
+  "train_ce": 2.0578,
+  "val_ce": 2.0006
+ },
+ {
+  "epoch": 3,
+  "train_ce": 1.8796,
+  "val_ce": 1.8344
+ },
+ {
+  "epoch": 4,
+  "train_ce": 1.6622,
+  "val_ce": 1.6391
+ },
+ {
+  "epoch": 5,
+  "train_ce": 1.4465,
+  "val_ce": 1.4237
+ },
+ {
+  "epoch": 6,
+  "train_ce": 1.2355,
+  "val_ce": 1.2389
+ },
+ {
+  "epoch": 7,
+  "train_ce": 1.0274,
+  "val_ce": 1.0921
+ },
+ {
+  "epoch": 8,
+  "train_ce": 0.8494,
+  "val_ce": 0.9376
+ },
+ {
+  "epoch": 9,
+  "train_ce": 0.6749,
+  "val_ce": 0.8128
+ },
+ {
+  "epoch": 10,
+  "train_ce": 0.5463,
+  "val_ce": 0.7576
+ },
+ {
+  "epoch": 11,
+  "train_ce": 0.4512,
+  "val_ce": 0.6548
+ },
+ {
+  "epoch": 12,
+  "train_ce": 0.3597,
+  "val_ce": 0.5877
+ },
+ {
+  "epoch": 13,
+  "train_ce": 0.2922,
+  "val_ce": 0.5303
+ },
+ {
+  "epoch": 14,
+  "train_ce": 0.2306,
+  "val_ce": 0.4969
+ },
+ {
+  "epoch": 15,
+  "train_ce": 0.1738,
+  "val_ce": 0.4625
+ },
+ {
+  "epoch": 16,
+  "train_ce": 0.1305,
+  "val_ce": 0.4225
+ },
+ {
+  "epoch": 17,
+  "train_ce": 0.1222,
+  "val_ce": 0.4195
+ },
+ {
+  "epoch": 18,
+  "train_ce": 0.0922,
+  "val_ce": 0.4005
+ },
+ {
+  "epoch": 19,
+  "train_ce": 0.0719,
+  "val_ce": 0.4082
+ },
+ {
+  "epoch": 20,
+  "train_ce": 0.0604,
+  "val_ce": 0.3796
+ },
+ {
+  "epoch": 21,
+  "train_ce": 0.0565,
+  "val_ce": 0.39
+ },
+ {
+  "epoch": 22,
+  "train_ce": 0.0441,
+  "val_ce": 0.3886
+ },
+ {
+  "epoch": 23,
+  "train_ce": 0.0385,
+  "val_ce": 0.3792
+ },
+ {
+  "epoch": 24,
+  "train_ce": 0.0339,
+  "val_ce": 0.3608
+ },
+ {
+  "epoch": 25,
+  "train_ce": 0.029,
+  "val_ce": 0.3717
+ },
+ {
+  "epoch": 26,
+  "train_ce": 0.0266,
+  "val_ce": 0.3759
+ },
+ {
+  "epoch": 27,
+  "train_ce": 0.0239,
+  "val_ce": 0.3585
+ },
+ {
+  "epoch": 28,
+  "train_ce": 0.0226,
+  "val_ce": 0.3574
+ },
+ {
+  "epoch": 29,
+  "train_ce": 0.0202,
+  "val_ce": 0.3576
+ },
+ {
+  "epoch": 30,
+  "train_ce": 0.0189,
+  "val_ce": 0.37
+ },
+ {
+  "epoch": 31,
+  "train_ce": 0.0168,
+  "val_ce": 0.38
+ },
+ {
+  "epoch": 32,
+  "train_ce": 0.0161,
+  "val_ce": 0.3786
+ },
+ {
+  "epoch": 33,
+  "train_ce": 0.0148,
+  "val_ce": 0.3711
+ }
+]

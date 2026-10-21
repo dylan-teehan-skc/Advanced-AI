@@ -15,3 +15,4 @@ checkpoints/
 *.pt
 *.safetensors
 .claude-flow/
+.tmp_extract/
